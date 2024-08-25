@@ -54,7 +54,7 @@ public class CanvasManager : MonoBehaviour
 
     public void ScreenStartDialog(Dialog sentence, UnityAction action = null)
     {
-        _dialogCanvas.StartDialog(sentence);
+        _dialogCanvas.StartDialog(sentence, action);
     }
 
 

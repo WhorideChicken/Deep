@@ -11,12 +11,14 @@ public class GameManager : MonoBehaviour
 
     public Dialog startGameDialog;
     public Dialog endingZDialog;
+    public Dialog guideDialog;
+    public Dialog failBottleDialog;
 
     [SerializeField] CommonCharacterController _player;
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
     }
 
@@ -24,8 +26,7 @@ public class GameManager : MonoBehaviour
     {
         CanvasManager.instance.ScreenFadeIn();
         CanvasManager.instance.GUITImeCanvas(true);
-        CanvasManager.instance.ScreenStartDialog(startGameDialog, StartBottleGame);
-        //StartBottleGame();
+        CanvasManager.instance.ScreenStartDialog(startGameDialog, StartBottleGame); ;
     }
 
 
@@ -34,28 +35,30 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("DeepWater_Intro");
     }
-     
+
 
     private void StartBottleGame()
     {
-        DiceManager.Instance.StartBottleGame(FirstSuccess, FailBottleGame);
+        BottleSystemManager.Instance.StartBottleGame(FirstSuccess, FailBottleGame);
     }
 
     private void FirstSuccess()
     {
-        DiceManager.Instance.EndBottleGame();
+        BottleSystemManager.Instance.EndBottleGame();
+        CanvasManager.instance.ScreenStartDialog(endingZDialog);
     }
 
     private void FailBottleGame()
     {
-        DiceManager.Instance.EndBottleGame();
+        BottleSystemManager.Instance.EndBottleGame();
+        CanvasManager.instance.ScreenStartDialog(guideDialog);
     }
 
     public bool IsMovable()
     {
         if (CanvasManager.instance.IsDialogOn())
             return false;
-        else if (DiceManager.Instance.gameObject.activeSelf)
+        else if (BottleSystemManager.Instance.BottleSystem.activeSelf)
             return false;
         else
             return true;
