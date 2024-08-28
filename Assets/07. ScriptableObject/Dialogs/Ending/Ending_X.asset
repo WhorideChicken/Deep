@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9afc281e34e8b84eb40a7d04a517914, type: 3}
-  m_Name: Guide_1
+  m_Name: Ending_X
   m_EditorClassIdentifier: 
   sentences:
-  - "\uC880 \uCC98\uB7FC \uC131\uACF5\uD558\uC9C0 \uBABB\uD558\uB294 \uAD6C\uB9CC..."
-  - "\uBA54\uB274\uC5BC \uB300\uB85C \uC0B0\uC18C \uACF5\uAE09\uAE30\uBD80\uD130
-    \uD655\uC778\uD558\uC790"
+  - "\uAC11\uC790\uAE30 \uBB3C\uC774 \uB4E4\uC774 \uB2E5\uCCE4\uB2E4.....!"
+  - "\uBAB8\uC744 \uC6C0\uC9C1\uC77C \uC218\uAC00 \uC5C6\uB2E4!!!!"
+  - "\uC81C\uBC1C...."
+  - "\uC81C\uBC1C.........."
+  - "\uC0B4...\uB824.....\u3148"

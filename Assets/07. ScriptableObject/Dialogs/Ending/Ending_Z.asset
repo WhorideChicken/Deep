@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9afc281e34e8b84eb40a7d04a517914, type: 3}
-  m_Name: EndingZ
+  m_Name: Ending_Z
   m_EditorClassIdentifier: 
   sentences:
   - "\uC544 XX \uAFC8...."

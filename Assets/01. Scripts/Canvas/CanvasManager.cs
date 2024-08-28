@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -54,12 +55,29 @@ public class CanvasManager : MonoBehaviour
 
     public void ScreenStartDialog(Dialog sentence, UnityAction action = null)
     {
-        _dialogCanvas.StartDialog(sentence);
+        _dialogCanvas.StartDialog(sentence, action);
     }
-
 
     public void GUITImeCanvas(bool isOn)
     {
         _timeCanvas.gameObject.SetActive(isOn);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+    }
+
+    void OnActiveSceneChanged(Scene previousScene, Scene newScene)
+    {
+        Debug.Log("change");
+        ScreenFadeIn();
+        ScreenInteractionText(false);
+
     }
 }

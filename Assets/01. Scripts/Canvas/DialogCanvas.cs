@@ -47,7 +47,6 @@ public class DialogCanvas : MonoBehaviour
         DisplayNextSentence(); 
     }
 
-    // 다음 문장을 표시하는 메서드
     public void DisplayNextSentence()
     {
         if (_sentences.Count == 0)
@@ -57,11 +56,11 @@ public class DialogCanvas : MonoBehaviour
             return;
         }
 
-        string sentence = _sentences.Dequeue(); // 다음 문장 가져오기
-        _dialogText.text = sentence;            // 텍스트에 문장 표시
+        string sentence = _sentences.Dequeue(); 
+        _dialogText.text = sentence;            
     }
 
-    // 다이얼로그 종료
+
     void EndDialog()
     {
         dialogUI.SetActive(false);  
