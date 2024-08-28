@@ -29,7 +29,7 @@ public class CameraInteraction : MonoBehaviour
         }
 
         // 드래그 중일 때 마우스 이동에 따라 Y축 회전
-        if (isDragging)
+        if (isDragging && GameManager.Instance.IsMovable())
         {
             float mouseX = Input.GetAxis("Mouse X");  // 마우스 X 이동값
 

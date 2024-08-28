@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public Dialog startGameDialog;
+    public Dialog endingDead;
     public Dialog endingZDialog;
     public Dialog guideDialog;
     public Dialog failBottleDialog;
@@ -24,14 +25,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        CanvasManager.instance.ScreenFadeIn();
         CanvasManager.instance.GUITImeCanvas(true);
         CanvasManager.instance.ScreenStartDialog(startGameDialog, StartBottleGame); ;
     }
 
 
 
-    private void GameModeChange()
+    public void GameModeChange()
     {
         SceneManager.LoadScene("DeepWater_Intro");
     }
@@ -44,8 +44,9 @@ public class GameManager : MonoBehaviour
 
     private void FirstSuccess()
     {
+        CanvasManager.instance.ScreenFadeOut();
         BottleSystemManager.Instance.EndBottleGame();
-        CanvasManager.instance.ScreenStartDialog(endingZDialog);
+        CanvasManager.instance.ScreenStartDialog(endingZDialog, GameModeChange);
     }
 
     private void FailBottleGame()
@@ -68,17 +69,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         _player.CheckDeath(true);
-        //_scenarioEnvets.Enqueue(() => {
-        //    CanvasManager.instance.ScreenStartDialog("나는 결국 죽었다...");
-        //});
-        //_scenarioEnvets.Enqueue(() => {
-        //    CanvasManager.instance.ScreenStartDialog("최선을 다해봤지만 결국 죽는다...");
-        //});
-        //_scenarioEnvets.Enqueue(() => {
-        //    CanvasManager.instance.ScreenStartDialog("이게 꿈이길 바란다...");
-        //});
-        //_scenarioEnvets.Enqueue(() => {
-        //    GameModeChange();
-        //});
+        CanvasManager.instance.ScreenStartDialog(endingDead, GameModeChange);
     }
+
 }
