@@ -4,6 +4,7 @@ using UnityEngine;
 public class MainDoorInteraction : InteractionObject
 {
     public Dialog endingX;
+    
     public override void Interaction()
     {
         base.Interaction();
@@ -16,9 +17,9 @@ public class MainDoorInteraction : InteractionObject
 
     }
 
-    private void Confirm()
+    private async void Confirm()
     {
-        CanvasManager.instance.ScreenFadeOut();
+        await CanvasManager.instance.ScreenFadeOut();
         CanvasManager.instance.ScreenStartDialog(endingX, GameManager.Instance.GameModeChange);
     }
 
