@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] CommonCharacterController _player;
 
+    public bool OxyenDone = false;
     private void Awake()
     {
         if (Instance == null)

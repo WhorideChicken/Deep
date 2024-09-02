@@ -8,6 +8,7 @@ public class TimCountCanvas : MonoBehaviour
 {
     public Text timerText; // 타이머 텍스트를 표시할 UI Text 컴포넌트
     public Image fillImage; // fillAmount를 조절할 이미지
+    public Image fillOxygenImage;
     public float totalTime = 600f; // 총 시간 (10분 = 600초)
 
     public Button exitButton;
@@ -25,6 +26,8 @@ public class TimCountCanvas : MonoBehaviour
 
     private void OnEnable()
     {
+        fillImage.fillAmount = 1.0f;
+        fillOxygenImage.fillAmount = 0.5f;
         StartTimerCoroutine();
     }
 
@@ -45,20 +48,24 @@ public class TimCountCanvas : MonoBehaviour
 
         while (remainingTime > 0)
         {
-            // 시간 계산 (분 : 초)
             int minutes = Mathf.FloorToInt(remainingTime / 60F);
             int seconds = Mathf.FloorToInt(remainingTime - minutes * 60);
 
-            // "MM:SS" 형식으로 텍스트 설정
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-            // 이미지의 fillAmount를 남은 시간에 비례하여 조절 (0 ~ 1)
             fillImage.fillAmount = remainingTime / totalTime;
+            if (!GameManager.Instance.OxyenDone)
+            {
+                fillOxygenImage.fillAmount -= 0.001f;
+                if (fillOxygenImage.fillAmount <= 0)
+                {
+                    break;
+                }
+            }
+            else
+                fillOxygenImage.fillAmount = 1.0f;
 
-            // 1초 기다림
             yield return new WaitForSeconds(1f);
-
-            // 남은 시간 감소
             remainingTime -= 1f;
         }
 

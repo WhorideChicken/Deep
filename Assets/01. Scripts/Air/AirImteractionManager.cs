@@ -26,11 +26,12 @@ public class AirImteractionManager : MonoBehaviour
 
         if ((airs[0]._isOn && airs[2]._isOn) && (!airs[1]._isOn && !airs[3]._isOn))
         {
-            Debug.Log("정답");
             for (int i = 0; i < airs.Length; i++)
             {
                 airs[i].AirClear();
             }
+
+            GameManager.Instance.OxyenDone = true;
             CanvasManager.instance.ScreenStartDialog(sucessDialog);
 
         }
