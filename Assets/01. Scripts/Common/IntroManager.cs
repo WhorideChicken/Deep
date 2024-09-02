@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class IntroManager : MonoBehaviour
 {
@@ -13,11 +14,17 @@ public class IntroManager : MonoBehaviour
     private Coroutine shakeCor = null;
     private Camera _mainCam;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private CancellationTokenSource _cancellationTokenSource;
+    private Tween fadeTween;
+
     void Start()
     {
         _mainCam = Camera.main;
-        _startText.DOFade(0.0f, 1.5f).SetLoops(-1,LoopType.Yoyo);
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        CancellationToken cancellationToken = _cancellationTokenSource.Token;
+
+        fadeTween = _startText.DOFade(0.0f, 1.5f).SetLoops(-1,LoopType.Yoyo);
         originalPosition = _mainCam.transform.position;
         CanvasManager.instance.GUITImeCanvas(false);
         CanvasManager.instance.ScreenFadeIn();
@@ -48,6 +55,7 @@ public class IntroManager : MonoBehaviour
 
     private IEnumerator Shake()
     {
+        fadeTween.Kill();
         CanvasManager.instance.ScreenFadeOut();
         _startText.gameObject.SetActive(false);
         float elapsedTime = 0f;

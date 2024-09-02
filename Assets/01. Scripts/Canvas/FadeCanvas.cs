@@ -29,12 +29,12 @@ public class FadeCanvas : MonoBehaviour
         });
     }
 
-    public void ScreenFadeOut()
+    public Task ScreenFadeOut()
     {
-        _fadeImage.DOFade(1.0f, 1.0f);
+       return _fadeImage.DOFade(1.0f, 1.0f).AsyncWaitForCompletion();
     }
-    public void ScreenFadeIn()
+    public Task ScreenFadeIn()
     {
-        _fadeImage.DOFade(0.0f, 1.0f);
+        return _fadeImage.DOFade(0.0f, 1.0f).AsyncWaitForCompletion(); ;
     }
 }

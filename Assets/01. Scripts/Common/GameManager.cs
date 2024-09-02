@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
         BottleSystemManager.Instance.StartBottleGame(FirstSuccess, FailBottleGame);
     }
 
-    private void FirstSuccess()
+    private async void FirstSuccess()
     {
-        CanvasManager.instance.ScreenFadeOut();
+        await CanvasManager.instance.ScreenFadeOut();
         BottleSystemManager.Instance.EndBottleGame();
         CanvasManager.instance.ScreenStartDialog(endingZDialog, GameModeChange);
     }
@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
             return false;
         else if (BottleSystemManager.Instance.BottleSystem.activeSelf)
             return false;
+        else if(CanvasManager.instance.IsGameOn())
+            return false;
         else
             return true;
 
@@ -68,8 +70,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        _player.CheckDeath(true);
-        CanvasManager.instance.ScreenStartDialog(endingDead, GameModeChange);
+        if (!_player.IsDead)
+        {
+            _player.IsDead = true;
+            CanvasManager.instance.ScreenStartDialog(endingDead, GameModeChange);
+        }
     }
+
+
 
 }

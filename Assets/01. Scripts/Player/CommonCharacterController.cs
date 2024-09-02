@@ -53,7 +53,22 @@ public class CommonCharacterController : MonoBehaviour
     private int _animIDDeath;
     private int _animIDMotionSpeed;
 
-    private bool IsDead = false;
+    public bool IsDead 
+    { 
+        get 
+        { 
+            return _isDead; 
+        } 
+        set 
+        { 
+            _isDead = value;
+            if(IsDead)
+                Death(_isDead);
+
+        } 
+    }
+
+    private bool _isDead = false;
     private Camera _mainCamera;
 
     private void Awake()
@@ -84,7 +99,7 @@ public class CommonCharacterController : MonoBehaviour
         if (!GameManager.Instance.IsMovable())
             return;
 
-        if (IsDead)
+        if (_isDead)
             return;
 
         GroundedCheck();
@@ -169,14 +184,15 @@ public class CommonCharacterController : MonoBehaviour
         }
     }
 
-    public void CheckDeath(bool Isdead)
+
+
+    private void Death(bool Isdead)
     {
         if (_hasAnimator)
         {
             _animator.SetBool(_animIDDeath, Isdead);
         }
-
-        IsDead = Isdead;
+        _controller.enabled = false;
     }
     #endregion
 

@@ -23,7 +23,6 @@ public class PlayerRayCast : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F)) 
             {
-                Debug.Log(currentInteraction.name);
                 currentInteraction.Interaction();
             }
         }

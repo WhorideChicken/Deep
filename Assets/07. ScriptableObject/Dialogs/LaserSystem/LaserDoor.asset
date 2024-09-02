@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9afc281e34e8b84eb40a7d04a517914, type: 3}
-  m_Name: Intro
+  m_Name: LaserDoor
   m_EditorClassIdentifier: 
   sentences:
-  - "\uC7A0\uC218\uC815\uC774 \uB9DD\uAC00\uC9C4\uAC83 \uAC19\uB2E4."
-  - "\uC0DD\uBA85\uC720\uC9C0 \uC2DC\uC2A4\uD15C\uC740 \"10\uBD84\" \uC774 \uD55C\uACC4\uC778\uB370
-    \uC5B4\uCA4C\uC9C0?"
-  - "\uB208 \uC55E\uC5D0 \uBB3C\uBCD1\uC774 \uBCF4\uC778\uB2E4. \uBB3C\uBCD1\uC744
-    \uB358\uC838\uBCF4\uC790..?!"
+  - "\uCDA9\uACA9\uC774 \uAC00\uD574\uC9C0\uBA74\uC11C \uBC29\uBC94 \uBAA8\uB4DC\uAC00
+    \uB3D9\uC791\uD558\uB294\uAC70 \uAC19\uB2E4."
+  - "\uC77C\uB2E8 \uC554\uD638\uBB38\uC744 \uD480\uC790"
+  - ...
+  - ....
+  - "... \uC554\uD638\uAC00 \uAE30\uC5B5\uB098\uC9C0 \uC54A\uB294\uB2E4."
+  - "\uCD08\uAE30\uD654 \uC2DC\uCF1C\uC57C\uACA0\uB2E4 \uBC29\uBC95\uC774..."

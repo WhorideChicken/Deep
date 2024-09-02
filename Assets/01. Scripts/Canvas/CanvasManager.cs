@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+//TODO : Show와 hide를 통일하여 카메라 움직임 막기
 public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
@@ -13,6 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TextCanvas _textCanvas;
     [SerializeField] private DialogCanvas _dialogCanvas;
     [SerializeField] private TimCountCanvas _timeCanvas;
+    [SerializeField] private PassWordGameCanvas _pwGameCanvas;
 
     private void Awake()
     {
@@ -32,20 +34,23 @@ public class CanvasManager : MonoBehaviour
     {
         return _dialogCanvas.isDialogActive;
     }
-
+    public bool IsGameOn()
+    {
+        return _pwGameCanvas.gameObject.activeSelf;
+    }
     public void ScreenFadeInOut(UnityAction action)
     {
         _fadeCanvas.ScreenFadeInOut(action);
     }
 
-    public void ScreenFadeOut()
+    public Task ScreenFadeOut()
     {
-        _fadeCanvas.ScreenFadeOut();
+        return _fadeCanvas.ScreenFadeOut();
     }
 
-    public void ScreenFadeIn()
+    public Task ScreenFadeIn()
     {
-        _fadeCanvas.ScreenFadeIn();
+        return _fadeCanvas.ScreenFadeIn();
     }
 
     public void ScreenInteractionText(bool isShow)
@@ -63,6 +68,12 @@ public class CanvasManager : MonoBehaviour
         _timeCanvas.gameObject.SetActive(isOn);
     }
 
+    public void StartCanvasGame(UnityAction action)
+    {
+        _pwGameCanvas.gameObject.SetActive(true);
+        _pwGameCanvas.StartPasswordGame(action);
+    }
+
     void OnEnable()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -75,8 +86,9 @@ public class CanvasManager : MonoBehaviour
 
     void OnActiveSceneChanged(Scene previousScene, Scene newScene)
     {
-        Debug.Log("change");
+
         ScreenFadeIn();
+        _pwGameCanvas.gameObject.SetActive(false);
         ScreenInteractionText(false);
 
     }

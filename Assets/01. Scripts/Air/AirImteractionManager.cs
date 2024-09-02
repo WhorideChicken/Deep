@@ -3,8 +3,8 @@ using UnityEngine;
 public class AirImteractionManager : MonoBehaviour
 {
     [SerializeField] AirInteraction[] airs;
-    [SerializeField] Dialog aorDialog;
-
+    [SerializeField] Dialog airDialog;
+    [SerializeField] Dialog sucessDialog;
     private bool IsFirst = false;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class AirImteractionManager : MonoBehaviour
     {
         if(!IsFirst)
         {
-            CanvasManager.instance.ScreenStartDialog(aorDialog);
+            CanvasManager.instance.ScreenStartDialog(airDialog);
             IsFirst = true;
             return;
         }
@@ -31,19 +31,9 @@ public class AirImteractionManager : MonoBehaviour
             {
                 airs[i].AirClear();
             }
+            CanvasManager.instance.ScreenStartDialog(sucessDialog);
 
-            //GameManager.Instance._scenarioEnvets.Enqueue(() =>
-            //{
-            //    CanvasManager.instance.ScreenStartDialog("숨 쉬는게 편해졌다...");
-            //});
-            //
-            //
-            //GameManager.Instance.StartScenarioEvents();
         }
-        else
-        {
-            Debug.Log("오답");
-        } 
 
     }
 }
