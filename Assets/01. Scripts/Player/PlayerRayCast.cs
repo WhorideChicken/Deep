@@ -7,6 +7,7 @@ public class PlayerRayCast : MonoBehaviour
     public float rayHeightOffset = 1.5f;
 
     private InteractionObject currentInteraction = null;
+    private float increaseRate = 100f;
 
     private void Start()
     {
@@ -21,9 +22,16 @@ public class PlayerRayCast : MonoBehaviour
 
         if (currentInteraction != null)
         {
-            if (Input.GetKeyDown(KeyCode.F)) 
+            if (Input.GetKeyDown(KeyCode.F) && !currentInteraction.IsHolding) 
             {
                 currentInteraction.Interaction();
+            }
+            else if(Input.GetKey(KeyCode.F) && currentInteraction.IsHolding)
+            {
+                float _value = 0.0f;
+                _value += increaseRate * Time.deltaTime;
+                currentInteraction.HoldingInteraction(_value);
+                Debug.Log("holding...." + _value);
             }
         }
      }

@@ -13,7 +13,7 @@ public class DialogCanvas : MonoBehaviour
     private Queue<string> _sentences;
     public bool isDialogActive;
 
-    void Start()
+    void Awake()
     {
         isDialogActive = false;
         _action = null;
@@ -33,6 +33,7 @@ public class DialogCanvas : MonoBehaviour
     {
         dialogUI.SetActive(true);   
         isDialogActive = true;     
+
         _sentences.Clear();
 
         _action = action;

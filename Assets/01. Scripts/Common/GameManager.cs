@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CanvasManager.instance.GUITImeCanvas(true);
-        CanvasManager.instance.ScreenStartDialog(startGameDialog, StartBottleGame); ;
+        CanvasManager.instance.ScreenStartDialog(startGameDialog, StartBottleGame);
     }
 
 
