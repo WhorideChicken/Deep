@@ -13,13 +13,16 @@ public class LaserLine : MonoBehaviour
     [SerializeField] private Transform _laserArm;
 
     private Sequence _laserSequence;
-
+    private bool _isWork = true;
     private void Start()
     {
         StartLaserPort();
     }
     void Update()
     {
+        if (!_isWork)
+            return;
+
         RaycastHit hit;
 
         if (Physics.Raycast(origin.position, origin.forward, out hit, maxDistance))
@@ -53,6 +56,7 @@ public class LaserLine : MonoBehaviour
     private void ClearLine()
     {
         lineRenderer.positionCount = 0;
+        hitParticle.SetActive(false);
     }
 
     //[RND]
@@ -88,4 +92,13 @@ public class LaserLine : MonoBehaviour
         }
     }
 
+    public void StopLaserSystem()
+    {
+        _isWork = false;
+        ClearLine();
+        if (_laserSequence != null)
+        {
+            _laserSequence.Kill();
+        }
+    }
 }

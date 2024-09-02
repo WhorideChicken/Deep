@@ -86,7 +86,7 @@ public class CanvasManager : MonoBehaviour
 
     void OnActiveSceneChanged(Scene previousScene, Scene newScene)
     {
-        Debug.Log("change");
+
         ScreenFadeIn();
         _pwGameCanvas.gameObject.SetActive(false);
         ScreenInteractionText(false);

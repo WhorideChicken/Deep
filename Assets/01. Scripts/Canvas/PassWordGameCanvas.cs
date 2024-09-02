@@ -11,7 +11,7 @@ public class PassWordGameCanvas : MonoBehaviour
 {
     [SerializeField] Button[] _numberPad;
     private int[] passwords;
-    private int _passwordCount = 9;
+    private int _passwordCount = 5;
     private int _clickCount = 0;
     private UnityAction _action;
 
@@ -40,8 +40,8 @@ public class PassWordGameCanvas : MonoBehaviour
     {
         Initialize();
         SuffleArray();
-        if(_action == null)
-            _action = action;
+
+        _action = action;
 
         _isReady = false;
         await Task.Delay(1000);
@@ -56,8 +56,8 @@ public class PassWordGameCanvas : MonoBehaviour
                 var image = _numberPad[passwords[i]].GetComponent<Image>();
 
                 // 애니메이션 시작 및 취소 가능하도록 설정
-                await image.DOFade(1.0f, 0.7f).AsyncWaitForCompletion(cancellationToken);
-                await image.DOFade(0.0f, 0.7f).AsyncWaitForCompletion(cancellationToken);
+                await image.DOFade(1.0f, 0.25f).AsyncWaitForCompletion(cancellationToken);
+                await image.DOFade(0.0f, 0.25f).AsyncWaitForCompletion(cancellationToken);
             }
         }
         catch (OperationCanceledException)
@@ -89,7 +89,7 @@ public class PassWordGameCanvas : MonoBehaviour
         if (!_isReady)
             return;
         
-        if (_clickCount < _passwordCount)
+        if (_clickCount < _passwordCount-1)
         {
             Image _img = _numberPad[number].GetComponent<Image>();
             _img.color = new Color(_img.color.r, _img.color.g, _img.color.b, 1f);
@@ -119,5 +119,10 @@ public class PassWordGameCanvas : MonoBehaviour
         this.gameObject.SetActive(false);
         _cancellationTokenSource?.Cancel();
         _action?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        _cancellationTokenSource?.Cancel();
     }
 }
