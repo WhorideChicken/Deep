@@ -31,6 +31,7 @@ public class PassWordGameCanvas : MonoBehaviour
         _clickCount = 0;
         for (int i = 0; i < _numberPad.Length; i++)
         {
+            _numberPad[i].transform.parent.localRotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-360, 360));
             Image _img = _numberPad[i].GetComponent<Image>();
             _img.color = new Color(_img.color.r, _img.color.g, _img.color.b, 0f);
         }
