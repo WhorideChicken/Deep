@@ -7,6 +7,6 @@ public class TurbineRotate : MonoBehaviour
     void Update()
     {
         if(IsOn)
-            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 }

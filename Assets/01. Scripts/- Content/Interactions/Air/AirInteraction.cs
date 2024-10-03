@@ -3,19 +3,23 @@ using UnityEngine;
 
 public class AirInteraction : InteractionObject
 {
-    [SerializeField] private Material _airOnMat;
-    [SerializeField] private Material _airOffMat;
-    [SerializeField] private Material _airClearMat;
-    [SerializeField] private MeshRenderer _airMesh;
-
     private AirImteractionManager _airManager;
-    private Material[] _airMats;
+
     public bool IsOn { get; private set; } = false;
     private bool _isClear = false;
+    private MaterialPropertyBlock _propertyBlock;
 
-    private void Start()
+    [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] Color _airOn;
+    [SerializeField] Color _airOff;
+    [SerializeField] Color _airClear;
+    private void Awake()
     {
-        _airMats = _airMesh.sharedMaterials;
+        _propertyBlock = new MaterialPropertyBlock();
+        _renderer.GetPropertyBlock(_propertyBlock); // 초기 상태 가져오기
+        _propertyBlock.SetColor("_Color", _airOff); // 초기 색상 설정
+        _renderer.SetPropertyBlock(_propertyBlock); // 설정 적용
+
     }
 
     public void Initialize(AirImteractionManager manager)
@@ -27,32 +31,38 @@ public class AirInteraction : InteractionObject
     {
         base.Interaction();
 
-        if (_isClear) 
+        if (_isClear)
             return;
+
+        _renderer.GetPropertyBlock(_propertyBlock);
 
         if (IsOn)
         {
-            _airMats[0] = _airOffMat;
-            _airMats[1] = _airOffMat;
+            Debug.Log("call on");
+
+            _propertyBlock.SetColor("_BaseColor", _airOff);
+            _propertyBlock.SetColor("_EmissionColor", _airOff * 0.5f);
+            IsOn = false;
         }
         else
         {
-            _airMats[0] = _airOffMat;
-            _airMats[1] = _airOnMat;
+            Debug.Log("call off");
+
+            _propertyBlock.SetColor("_BaseColor", _airOn);
+            _propertyBlock.SetColor("_EmissionColor", Color.black);
+            IsOn = true;
         }
 
-        _airMesh.sharedMaterials = _airMats;
-        IsOn = _airMats[1] != _airOffMat;
+        _renderer.SetPropertyBlock(_propertyBlock);
         _airManager.CheckAirCondition();
     }
 
     public void AirClear()
     {
-        _airMats[0] = _airOffMat;
-        _airMats[1] = _airClearMat;
-
-        _airMesh.sharedMaterials = _airMats;
         GetComponent<BoxCollider>().enabled = false;
+        _propertyBlock.SetColor("_BaseColor", _airClear);
+        _propertyBlock.SetColor("_EmissionColor", Color.black);
+        _renderer.SetPropertyBlock(_propertyBlock);
         _isClear = true;
     }
 }

@@ -8,7 +8,7 @@ public class DoorInteraction : MonoBehaviour
     [SerializeField] private Transform _rightDoor;
     [SerializeField] private Transform _leftDoor;
     [SerializeField] private LayerMask _playerLayer;
-
+    [SerializeField] private BoxCollider boxCollider;
     private bool _isOpened = false;
     private bool _isPlayerExited = true;
     private Coroutine _doorCheckCoroutine;
